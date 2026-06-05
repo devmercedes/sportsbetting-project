@@ -3,8 +3,13 @@ import OpenAI from 'openai'
 import crypto from 'crypto'
 import { PickGenerationResult, Sport } from '@/types'
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! })
+function getAnthropic() {
+  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
+}
+
+function getOpenAI() {
+  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY! })
+}
 
 const SPORT_SYSTEM_PROMPTS: Record<Sport, string> = {
   NFL: 'You are an expert NFL analyst with 20+ years experience. Analyze matchups considering: offensive/defensive rankings, injury reports, home/away splits, weather, line movement, and recent form.',
