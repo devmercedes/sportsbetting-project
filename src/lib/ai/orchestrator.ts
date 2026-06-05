@@ -58,7 +58,7 @@ Respond ONLY with valid JSON in this exact format:
   "reasoning": "detailed analysis explaining the pick"
 }`
 
-  const response = await anthropic.messages.create({
+  const response = await getAnthropic().messages.create({
     model: 'claude-3-5-sonnet-20241022',
     max_tokens: 1024,
     system: systemPrompt,
@@ -71,7 +71,7 @@ Respond ONLY with valid JSON in this exact format:
 
 async function analyzeWithGPT(event: EventContext): Promise<GPTPickResult> {
   const systemPrompt = SPORT_SYSTEM_PROMPTS[event.sport]
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: 'gpt-4o',
     messages: [
       { role: 'system', content: systemPrompt },
