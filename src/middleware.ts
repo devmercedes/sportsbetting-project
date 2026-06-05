@@ -1,5 +1,4 @@
-import { createServerClient } from '@supabase/ssr'
-import type { CookieMethodsServer } from '@supabase/ssr'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextRequest, NextResponse } from 'next/server'
 
 const PROTECTED_ROUTES = ['/dashboard', '/picks', '/analytics', '/settings']
@@ -13,7 +12,7 @@ export async function middleware(request: NextRequest) {
     {
       cookies: {
         getAll: () => request.cookies.getAll(),
-        setAll: (cookiesToSet: Parameters<CookieMethodsServer['setAll']>[0]) => {
+        setAll: (cookiesToSet: { name: string; value: string; options?: CookieOptions }[]) => {
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           )
